@@ -1,0 +1,40 @@
+<div class="container">
+    <h1>Search</h1>
+  
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" #moviename  placeholder="Enter movie name" aria-label="Find movies">
+          <button (click)="getMovieDetails(moviename.value)" class="btn btn-outline-success" type="submit" >Search</button>
+        </form>
+      </div>
+    </nav>  
+  
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#" (click)="getPreviousPage(moviename.value)">Previous</a></li>     
+      <li class="page-item"><a class="page-link" href="#">Page {{this.currentPage}} ({{movieData?.totalResults}} results)</a></li>
+      <li class="page-item"><a class="page-link" href="#" (click)="getNextPage(moviename.value)">Next</a></li>
+    </ul>
+  
+
+    <div *ngIf="movieData">
+      <div class="row bg-light mt-4 p-4" *ngIf="movieData && movieData.Error">
+        <div class="col-sm-4">
+          <div>
+            <h3>{{movieData.Error}}</h3>
+          </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" *ngIf="movieData">
+      <div class="col"  *ngFor="let movie of movieData.Search">
+        <div class="card mt-3">
+          <img src="{{movie.Poster}}" class="card-img-top img-fluid">
+          <div class="card-body">
+            <h5 class="card-title">{{movie.Title}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
